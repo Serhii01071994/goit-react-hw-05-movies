@@ -39,7 +39,7 @@ const MovieDetails = () => {
         {error && <ErrorMessage message={error} />}
         <Link to={backLinkHref.current} className='go-back'>Go Back</Link>
         <MovieDetailsCard moviesDetails={moviesDetails} />
-        <AdditionalInformation backLinkHref={backLinkHref} />
+        <AdditionalInformation location={location} />
         <Routes>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />

@@ -5,9 +5,8 @@ import { useParams } from "react-router-dom";
 import { fetchMovieCast, filmposter } from "servises/api";
 
 const Cast = () => {
-    
      const { movieId } = useParams();
-     const [cast, setCast] = useState(null);
+     const [currentCast, setCurrentCast] = useState(null);
      const [isLoading, setIsLoading] = useState(false);
      const [error, setError] = useState(null);
 
@@ -16,7 +15,7 @@ const Cast = () => {
          try {
            setIsLoading(true);
            const moviesCast = await fetchMovieCast(movieId);
-           setCast(moviesCast);
+           setCurrentCast(moviesCast);
          } catch (error) {
            setError(error.message);
          } finally {
@@ -26,24 +25,25 @@ const Cast = () => {
        fetchCast();
      }, [movieId]);
     
-    if (cast?.length === 0) {
-
+    if (currentCast?.length === 0) {
       return <p>No info</p>;
     }
     
-    const showCast = Array.isArray(cast) && cast.length > 0;
+    
     return (
-      <div>
+        <div className="actor-card">
         {isLoading && <Loader />}
         {error && <ErrorMessage message={error} />}
-        {showCast &&
-          cast.map(actor => (
-            <div key={actor.id}>
+        {currentCast &&
+          currentCast.map(actor => (
+            <div className="actor" key={actor.id}>
               <img
                 src={filmposter(actor.profile_path)}
-                alt={actor.original_name}
+                      alt={actor.original_name}
+                      width={150}
+                      
               />
-              <p>{actor.original_name}</p>
+              <p className="under-title">{actor.original_name}</p>
               <p className="text">Character: {actor.character}</p>
             </div>
           ))}

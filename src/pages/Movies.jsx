@@ -1,23 +1,40 @@
-import SearchForm from "components/SearchForm/SearchForm";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { MoviesSearch } from 'components/MoviesSearch/MoviesSearch';
+import SearchForm from 'components/SearchForm/SearchForm';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-     const [searchParams, setSearchParams] = useSearchParams();
-     const query = searchParams.get('query');
 
-     useEffect(() => {
-       if (!query) return;
-     }, [query]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
-     const handleFormSubmit = e => {
-       e.preventDefault();
-       const searchValue = e.currentTarget.elements.searchQuery.value;
-         setSearchParams({ query: searchValue });
-     };
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    const searchValue = e.currentTarget.elements.searchQuery.value;
+    setSearchParams({ query: searchValue });
+  };
+
+  useEffect(() => {
+    const fetchMovieDetailsById = async () => {
+      try {
+        setIsLoading(true);
+        const moviesData = await fetchMovieDetails(movieId);
+        setMoviesDetails(moviesData);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchMovieDetailsById();
+  }, [movieId]);
+  
 
   return (
-      <SearchForm handleFormSubmit={handleFormSubmit } />
+    <div>
+      <SearchForm onSubmit={handleFormSubmit} />
+      <MoviesSearch searchParams={searchParams} />
+    </div>
   );
 };
 

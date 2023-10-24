@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 
 export const StyledAppContainer = styled.div`
-  .container{
-    margin:20px;
+  .container {
+    margin: 20px;
   }
-  
+
   .home-list {
     display: flex;
     margin-left: auto;
@@ -84,6 +84,25 @@ export const StyledAppContainer = styled.div`
     margin: 10px 0;
     color: rgba(0, 0, 0);
   }
+
+  .actor-card {
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .actor {
+    border: 1px solid rgba(1, 1, 1);
+    border-radius:10px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -118,5 +137,11 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
     margin-right: 15px;
     margin-bottom: 20px;
+  }
+`;
+
+export const StyledLinkInform = styled(Link)`
+  .inform {
+    margin-top: 20px;
   }
 `;

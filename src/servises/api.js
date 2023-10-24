@@ -34,7 +34,7 @@ export const fetchMovieCast = async movieId => {
   const { data } = await axios.get(
     `${URL}/movie/${movieId}/credits?api_key=${API_KEY}`
   );
-  return data;
+  return data.cast;
 };
 
 // Обзоры фильма
@@ -42,7 +42,7 @@ export const fetchMovieReviews = async movieId => {
   const { data } = await axios.get(
     `${URL}/movie/${movieId}/reviews?api_key=${API_KEY}`
   );
-  return data;
+  return data.results;
 };
 
 // Постер фильма
