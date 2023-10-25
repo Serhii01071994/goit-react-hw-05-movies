@@ -1,39 +1,50 @@
+import ErrorMessage from 'components/ErrorMessege/ErrorMessage';
+import Loader from 'components/Loader/Loader';
 import { MoviesSearch } from 'components/MoviesSearch/MoviesSearch';
 import SearchForm from 'components/SearchForm/SearchForm';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { fetchSearchMovies } from 'servises/api';
 
 const Movies = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const [movies, setMovies] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const query = searchParams.get('query');
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    const searchValue = e.currentTarget.elements.searchQuery.value;
-    setSearchParams({ query: searchValue });
-  };
-
   useEffect(() => {
-    const fetchMovieDetailsById = async () => {
+    if (!query) return;
+    const searchMovie = async () => {
       try {
         setIsLoading(true);
-        const moviesData = await fetchMovieDetails(movieId);
-        setMoviesDetails(moviesData);
+        const movie = await (await fetchSearchMovies(query)).results;
+        setMovies(movie);
       } catch (error) {
         setError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchMovieDetailsById();
-  }, [movieId]);
-  
+    searchMovie();
+  }, [query]);
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    const searchValue = e.currentTarget.elements.query.value;
+    setSearchParams({ query: searchValue });
+  };
 
   return (
     <div>
       <SearchForm onSubmit={handleFormSubmit} />
-      <MoviesSearch searchParams={searchParams} />
+      <section>
+        {isLoading && <Loader />}
+        {error && <ErrorMessage message={error} />}
+        <MoviesSearch query={query} movies={movies} location={location} />
+      </section>
     </div>
   );
 };

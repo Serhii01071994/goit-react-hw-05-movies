@@ -1,11 +1,11 @@
 // import Home from "pages/Home"
 // import Movies from "pages/Movies";
 // import MovieDetails from "pages/MovieDetails";
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes } from 'react-router-dom';
 
 import { StyledAppContainer, StyledNavLink } from './App.styled';
-import { Suspense, lazy } from "react";
-import Loader from "components/Loader/Loader";
+import { Suspense, lazy } from 'react';
+import Loader from 'components/Loader/Loader';
 
 const Home = lazy(() => import('pages/Home'));
 const Movies = lazy(() => import('pages/Movies'));
@@ -18,7 +18,7 @@ export const App = () => {
         <StyledNavLink to="/">Home</StyledNavLink>
         <StyledNavLink to="/movies">Movies</StyledNavLink>
       </header>
-      <Suspense fallback={<Loader/>}> 
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
@@ -27,4 +27,4 @@ export const App = () => {
       </Suspense>
     </StyledAppContainer>
   );
-} 
+};

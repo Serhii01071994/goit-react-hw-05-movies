@@ -13,7 +13,7 @@ const Home = () => {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
-          const moviesData = await fetchAllMovies();
+        const moviesData = await fetchAllMovies();
         setMovies(moviesData);
       } catch (error) {
         setError(error.message);
@@ -22,10 +22,10 @@ const Home = () => {
       }
     };
     fetchMovies();
-  },[]);
-    
+  }, []);
+
   return (
-    <div className='home-list'>
+    <div className="home-list">
       {isLoading && <Loader />}
       {error && <ErrorMessage message={error} />}
       <MoviesList movies={movies} />

@@ -12,7 +12,7 @@ import { StyledLink } from 'components/App/App.styled';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = useRef(location.state?.from ??"/")
+  const backLinkHref = useRef(location.state?.from ?? '/');
   const [moviesDetails, setMoviesDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,13 +31,15 @@ const MovieDetails = () => {
     };
     fetchMovieDetailsById();
   }, [movieId]);
-    
+
   return (
     <StyledLink>
       <div className="container">
         {isLoading && <Loader />}
         {error && <ErrorMessage message={error} />}
-        <Link to={backLinkHref.current} className='go-back'>Go Back</Link>
+        <Link to={backLinkHref.current} className="go-back">
+          Go Back
+        </Link>
         <MovieDetailsCard moviesDetails={moviesDetails} />
         <AdditionalInformation location={location} />
         <Routes>

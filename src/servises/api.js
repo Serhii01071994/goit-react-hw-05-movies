@@ -14,9 +14,9 @@ export const fetchAllMovies = async () => {
 };
 
 // Поиск фильмов по названию
-export const fetchSearchMovies = async searchQuery => {
+export const fetchSearchMovies = async query => {
   const { data } = await axios.get(
-    `${URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}`
+    `${URL}/search/movie?api_key=${API_KEY}&query=${query}`
   );
   return data;
 };
