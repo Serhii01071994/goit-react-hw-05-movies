@@ -1,6 +1,6 @@
 import MoviesListItem from 'components/MoviesListItem/MoviesListItem';
 
-const MoviesList = ({ movies }) => {
+const MoviesList = ({ movies, location }) => {
   const showMovies = Array.isArray(movies) && movies.length > 0;
 
   return (
@@ -8,7 +8,12 @@ const MoviesList = ({ movies }) => {
       {showMovies &&
         movies.map(movie => {
           return (
-            <MoviesListItem title={movie.title} movie={movie} key={movie.id} />
+            <MoviesListItem
+              location={location}
+              title={movie.title}
+              movie={movie}
+              key={movie.id}
+            />
           );
         })}
     </ul>
